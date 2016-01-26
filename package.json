@@ -1,0 +1,14 @@
+{
+  "name": "log-ew",
+  "main": "log.js",
+  "version": "1.0.6",
+  "description": "",
+  "scripts": {
+    "test": "mocha test"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "winston": "^2.1.1"
+  }
+}
