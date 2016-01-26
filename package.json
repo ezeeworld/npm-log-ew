@@ -1,8 +1,12 @@
 {
   "name": "log-ew",
   "main": "log.js",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "",
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/ezeeworld/npm-log-ew.git"
+  },
   "scripts": {
     "test": "mocha test"
   },
