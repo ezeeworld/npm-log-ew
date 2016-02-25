@@ -1,18 +1,22 @@
 {
   "name": "log-ew",
   "main": "log.js",
-  "version": "1.0.8",
-  "description": "",
+  "version": "1.1.1",
+  "description": "logging module",
   "repository": {
     "type" : "git",
     "url" : "https://github.com/ezeeworld/npm-log-ew.git"
   },
   "scripts": {
-    "test": "mocha test"
+    "test": "if test -f node_modules/.bin/mocha; then node_modules/.bin/mocha test; else mocha test; fi"
   },
-  "author": "",
+  "author": "Dominic Rose",
   "license": "ISC",
   "dependencies": {
-    "winston": "^2.1.1"
+    "winston": "",
+    "lodash": ""
+  },
+  "devDependencies": {
+    "mocha": ""
   }
 }
