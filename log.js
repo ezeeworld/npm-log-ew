@@ -6,56 +6,49 @@ var _ = require('lodash');
 
 var defaultOptions = {
     separator: ' ',
-    winstonLogger: winston,
+    logger: winston,
 };
 
 module.exports = new_();
+
 function new_(mainOptions) {
     mainOptions = _.clone(mainOptions || {});
     _.defaultsDeep(mainOptions, defaultOptions);
 
     var separator = mainOptions.separator;
-    var logger = mainOptions.winstonLogger;
+    var logger = mainOptions.logger;
 
-    return _.assign(defaultLogger.bind(), {
-        new: new_,
-        info: info,
-        debug: debug,
-        warn: warn,
-        error: error,
-        verbose: verbose,
-        alert: alert,
-        fields: fields,
-        hash: hash,
-    });
-
-    function defaultLogger() {
-        logLevel('info', arguments);
-    }
-
-    function debug() {
-        logLevel('debug', arguments);
-    }
-
-    function info() {
-        logLevel('info', arguments);
-    }
-
-    function warn() {
-        logLevel('warn', arguments);
-    }
+    return _.assign(new_.bind(), {
+        inspect: {
+            fields: fields,
+            hash: hash,
+            log: inspectLog,
+            error: error,
+            warn: warn,
+            info: info,
+            verbose: verbose,
+            debug: debug,
+            silly: silly,
+        },
+    }, logger);
 
     function error() {
-        logLevel('error', arguments);
-        console.trace();
+        inspectLog('error', arguments);
     }
-
+    function warn() {
+        inspectLog('warn', arguments);
+    }
+    function info() {
+        inspectLog('info', arguments);
+    }
     function verbose() {
-        logLevel('verbose', arguments);
+        inspectLog('verbose', arguments);
     }
-
-    function alert() {
-        logLevel('alert', arguments);
+    function debug() {
+        inspectLog('debug', arguments);
+    }
+    function silly() {
+        inspectLog('silly', arguments);
     }
 
     function fields(object, fields, level) {
@@ -107,7 +100,7 @@ function new_(mainOptions) {
 
     // PRIVATE
 
-    function logLevel(level, argumentList) {
+    function inspectLog(level, argumentList) {
         var nonConvertibleTypes = ['object', 'function'];
         var s = '';
         for (var i = 0; i < argumentList.length; i++) {

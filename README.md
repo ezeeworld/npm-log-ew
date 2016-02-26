@@ -1,4 +1,4 @@
-# Async logging using winston
+# Winston logger wrapper with added inspection functions
 
 ## Installation
 ```sh
@@ -10,45 +10,60 @@ See winston README: <https://github.com/winstonjs/winston>
 
 ## Usage
 ```js
+// require default logger (created with default options)
 const log = require('log-ew');
 
-// customizing options up-front
-var logger = new (winston.Logger)({
-  transports: [
-    new (winston.transports.Console)(),
-    new (winston.transports.File)({ filename: 'somefile.log' }),
-  ],
+// override default options
+const log = require('log-ew')({ logger: console });
+
+// making a logger available to other files
+const log = require('log-ew');
+log.consoleLogger = log({ logger: console });
+```
+
+## Options
+
+### logger
+Defaults to `require('winston')`
+
+```js
+const log = require('log-ew');
+
+// the log.loggers function comes from winston
+log.loggers.add('logger1', {
+    console: {
+        colorize: true,
+        label: 'logger 1',
+    },
 });
-const log = require('log-ew')({ winstonLogger: logger });
-
-// making an instance available to other files
-const log = require('log-ew');
-log.myCustomInstance = log({ winstonLogger: logger });
-// freeing memory: delete log.myCustomInstance
+var logger1 = log({
+    // logger.log must be a function(level, arguments…)
+    logger: log.loggers.get('logger1'),
+});
 ```
 
 ### Logging
 ```js
-// info
-log('hello world');
-log.info('hello world');
+const log = require('log-ew');
 
-// log the error and inspection of the error object
-log.error(err);
+// every property of winston is available by default
+log.info('version', log.version);
 
-// other levels
-log.debug();
-log.warn();
-log.error();
-log.verbose();
-log.alert();
+// inspect arguments in more detail, this can be useful for errors
+log.inspect.log(level, arguments…);
+log.inspect.error(arguments…);
+log.inspect.warn(arguments…);
+log.inspect.info(arguments…);
+log.inspect.verbose(arguments…);
+log.inspect.debug(arguments…);
+log.inspect.silly(arguments…);
 
 // logging objects
-log.fields({ firstName: 'John', lastName: 'Smith' }, ['firstName']); // info
-log.fields({ firstName: 'John', lastName: 'Smith' }, ['firstName'], 'debug');
-log.fields({ firstName: 'John', lastName: 'Smith' }, ['firstName'], { level: 'debug' });
-log.hash('Hello', { firstName: 'John', lastName: 'Smith' }); // info
-log.hash('Hello', { firstName: 'John', lastName: 'Smith' }, 'debug');
+log.inspect.fields({ firstName: 'John', lastName: 'Smith' }, ['firstName']); // info
+log.inspect.fields({ firstName: 'John', lastName: 'Smith' }, ['firstName'], 'debug');
+log.inspect.fields({ firstName: 'John', lastName: 'Smith' }, ['firstName'], { level: 'debug' });
+log.inspect.hash('Hello', { firstName: 'John', lastName: 'Smith' }); // info
+log.inspect.hash('Hello', { firstName: 'John', lastName: 'Smith' }, 'debug');
 ```
 
 ## Running tests
