@@ -1,10 +1,10 @@
 'use strict';
 
-var util = require('util');
-var winston = require('winston');
-var _ = require('lodash');
+const util = require('util');
+const _ = require('lodash');
+const winston = require('winston');
 
-var defaultOptions = {
+const defaultOptions = {
     separator: ' ',
     logger: winston,
 };
@@ -15,8 +15,8 @@ function new_(mainOptions) {
     mainOptions = _.clone(mainOptions || {});
     _.defaultsDeep(mainOptions, defaultOptions);
 
-    var separator = mainOptions.separator;
-    var logger = mainOptions.logger;
+    const separator = mainOptions.separator;
+    const logger = mainOptions.logger;
 
     return _.assign(new_.bind(), {
         inspect: {
@@ -164,4 +164,4 @@ function new_(mainOptions) {
         }
         return copy;
     }
-};
+}

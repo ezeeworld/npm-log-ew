@@ -1,8 +1,8 @@
 'use strict';
 
-var assert = require('assert');
-var logModule = require('../log');
-var log = logModule();
+const assert = require('assert');
+const logModule = require('../src/built/log');
+const log = logModule();
 
 describe('module log', function() {
     describe('managing instances', function() {

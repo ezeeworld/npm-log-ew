@@ -68,7 +68,6 @@ log.inspect.hash('Hello', { firstName: 'John', lastName: 'Smith' }, 'debug');
 
 ## Running tests
 ```sh
-$ npm install --only=dev
-$ npm install mocha // or npm install -g mocha
+$ npm install
 $ npm test
 ```
