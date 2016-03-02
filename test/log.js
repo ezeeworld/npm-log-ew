@@ -47,7 +47,16 @@ describe('module log', function() {
     describe('inspect.info', function() {
         it('should not raise an error when called', function() {
             assert.equal(typeof log.inspect.info, 'function');
-            log.inspect.info('test log.inspect.info2');
+            log.inspect.info('test log.inspect.info');
+        });
+    });
+    describe('inspect.hash', function() {
+        it('should log a hashmap', function() {
+            assert.equal(typeof log.inspect.hash, 'function');
+            log.inspect.hash('test log.inspect.hashmap', {
+                firstname: 'John',
+                lastname: 'Smith',
+            });
         });
     });
 });

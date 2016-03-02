@@ -5,7 +5,7 @@
     "type": "git",
     "url": "https://github.com/ezeeworld/npm-log-ew.git"
   },
-  "version": "2.0.0",
+  "version": "2.0.4",
   "description": "winston logger wrapper with added inspection functions",
   "scripts": {
     "prepublish": "bin/prepublish",

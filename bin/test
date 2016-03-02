@@ -7,4 +7,4 @@ if test -f "$DIR/node_modules/.bin/mocha"; then
 else
   MOCHA="mocha"
 fi
-(cd "$DIR" && "$MOCHA" --recursive test) || exit 1
+"$MOCHA" --recursive "$DIR/test" || exit 1

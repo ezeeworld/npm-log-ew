@@ -79,19 +79,19 @@ function new_(mainOptions) {
     };
 
     function hash(message, hash, options) {
-        var level = 'info';
+        let level = 'info';
         if (typeof options == 'string') {
             level = options;
             options = {};
         }
-        var s = '';
-        var hashKeys = Object.keys(hash);
-        for (var i in hashKeys) {
+        let s = '';
+        let hashKeys = Object.keys(hash);
+        for (let i in hashKeys) {
             if (i > 0) {
                 s += ', ';
             }
-            var fieldKey = hashKeys[i];
-            var fieldVal = hash[fieldKey];
+            let fieldKey = hashKeys[i];
+            let fieldVal = hash[fieldKey];
             s += fieldKey + ': ' + fieldVal;
         }
         logger.log(level, message + ' ' + s);
